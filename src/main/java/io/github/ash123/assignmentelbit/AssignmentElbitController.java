@@ -207,14 +207,16 @@ public class AssignmentElbitController
 																	{
 																		try
 																		{
-																			return OBJECT_MAPPER.readTree(body).path("All").path("population");
+																			return OBJECT_MAPPER.readTree(body)
+																					.path("All")
+																					.path("population");
 																		} catch (JsonProcessingException e)
 																		{
 																			e.printStackTrace();
 																			return MissingNode.getInstance();
 																		}
 																	})
-																	.thenApplyAsync(JsonNode::numberValue)
+																	.thenApplyAsync(JsonNode::intValue)
 																	.thenApplyAsync(Number::doubleValue)
 																	.thenApplyAsync(population -> new CountryAndRatio(
 																			country,
