@@ -52,7 +52,9 @@ public class AssignmentElbitController
 				{
 					try
 					{
-						return OBJECT_MAPPER.readTree(body).path("All").path("dates");
+						return OBJECT_MAPPER.readTree(body)
+								.path("All")
+								.path("dates");
 					} catch (JsonProcessingException e)
 					{
 						e.printStackTrace();
