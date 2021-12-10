@@ -68,7 +68,19 @@ public class AssignmentElbitController
 	}
 
 	@GetMapping("/1/daily-new-confirmed-cases")
-	private CompletableFuture<Integer> getDailyNewCases(
+	private CompletableFuture<Integer> getDailyNewConfirmedCases(
+			@RequestParam
+					String country,
+			@RequestParam
+			@DateTimeFormat(pattern = "dd-MM-yyyy")
+					LocalDate localDate)
+	{
+		return getDatesHistoryByCountryAndStatus(country, Status.CONFIRMED)
+				.thenApplyAsync(dates -> dates.get(localDate) - dates.get(localDate.minusDays(1)));
+	}
+
+	@GetMapping("/1/daily-new-deaths-cases")
+	private CompletableFuture<Integer> getDailyNewDeathsCases(
 			@RequestParam
 					String country,
 			@RequestParam
